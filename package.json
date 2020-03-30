@@ -1,0 +1,35 @@
+{
+  "name": "daves-legacy-ttt",
+  "version": "1.0.0",
+  "description": "A refactoring of Dave's Legacy TTT app",
+  "main": "ticTacToe.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "assert": "^2.0.0",
+    "chai": "^4.2.0",
+    "chai-spies": "^1.0.0",
+    "sinon": "^9.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^7.1.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sillhouette/daves_legacy_ttt.git"
+  },
+  "keywords": [
+    "legacy",
+    "ttt"
+  ],
+  "author": "Richard Austin Melchior",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sillhouette/daves_legacy_ttt/issues"
+  },
+  "homepage": "https://github.com/Sillhouette/daves_legacy_ttt#readme"
+}

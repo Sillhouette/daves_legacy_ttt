@@ -54,7 +54,7 @@ describe("#isGameOver", function() {
       })
     })
 
-    it('returns 1 when player 2 has won the game', function() {
+    it('returns 2 when player 2 has won the game', function() {
       Object.keys(WIN_COMBINATIONS).forEach(function(combo) {
         ttt.changeState(WIN_COMBINATIONS[combo][0], 2)
         ttt.changeState(WIN_COMBINATIONS[combo][1], 2)
@@ -64,7 +64,7 @@ describe("#isGameOver", function() {
       })
     })
 
-    it("returns 1 when the game has been tied", function(){
+    it("returns 3 when the game has been tied", function(){
       ttt.changeState(0, 1)
       ttt.changeState(1, 1)
       ttt.changeState(2, 2)

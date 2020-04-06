@@ -2,6 +2,7 @@ var $ = require('jquery')
 
 var s = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0); //Default value for squares is empty
 var numPlayers = 1; //Default number of players is 1
+
 /* istanbul ignore next */
 $(document).ready(function() {
     $("span#userFirst").click(function() {

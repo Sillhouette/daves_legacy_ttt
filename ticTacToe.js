@@ -1,6 +1,8 @@
+var $ = require('jquery')
+
 var s = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0); //Default value for squares is empty
 var numPlayers = 1; //Default number of players is 1
-
+/* istanbul ignore next */
 $(document).ready(function() {
     $("span#userFirst").click(function() {
         numPlayers = 1;
@@ -251,7 +253,7 @@ $(document).ready(function() {
     });
     
 });
-
+/* istanbul ignore next */
 function calculateTurnNumber() {
     x = 0;
     for (n in s) {
@@ -262,7 +264,7 @@ function calculateTurnNumber() {
     
     return x;
 }
-
+/* istanbul ignore next */
 function computerMove() {
     if(calculateTurnNumber() == 1) {
         if(s[4] == 0) {
@@ -394,6 +396,11 @@ function makeMove() {
         $("td#5").html("O");
         s[5] = 2;
     }
+    //Speical Case (Fixes bug in the ai decision making tree)
+    else if(s[0] == 0 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 1 && s[6]== 1 && s[7]== 0 && s[8]== 0) {
+        $("td#5").html("O");
+        s[8] = 2;
+    }
     //When to play top-left defensively
     else if(((s[1] == 1 && s[2] == 1) || (s[4] == 1 && s[8] == 1) || (s[3] == 1 && s[6] == 1)) && s[0] == 0) {
         $("td#0").html("O");
@@ -457,16 +464,11 @@ function makeMove() {
 }
 
 function isGameOver() {
+    let player1 = 1
+    let player2 = 2
+    let tie = 3
     if(s[0] == 1 && s[1] == 1 && s[2] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
+        setStateToWinner(player1)
         
         $("td#0").animate({
             fontSize: "50px",
@@ -484,15 +486,7 @@ function isGameOver() {
         return 1;
     }
     if(s[3] == 1 && s[4] == 1 && s[5] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
+        setStateToWinner(player1)
         
         $("td#3").animate({
             fontSize: "50px",
@@ -510,15 +504,7 @@ function isGameOver() {
         return 1;
     }
     if(s[6] == 1 && s[7] == 1 && s[8] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
+        setStateToWinner(player1)
         
         $("td#6").animate({
             fontSize: "50px",
@@ -536,15 +522,7 @@ function isGameOver() {
         return 1;
     }
     if(s[0] == 1 && s[3] == 1 && s[6] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
+        setStateToWinner(player1)
         
         $("td#0").animate({
             fontSize: "50px",
@@ -562,16 +540,8 @@ function isGameOver() {
         return 1;
     }
     if(s[1] == 1 && s[4] == 1 && s[7] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player1)
+
         $("td#1").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -588,16 +558,8 @@ function isGameOver() {
         return 1;
     }
     if(s[2] == 1 && s[5] == 1 && s[8] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player1)
+
         $("td#2").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -614,16 +576,8 @@ function isGameOver() {
         return 1;
     }
     if(s[0] == 1 && s[4] == 1 && s[8] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player1)
+
         $("td#0").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -640,16 +594,8 @@ function isGameOver() {
         return 1;
     }
     if(s[2] == 1 && s[4] == 1 && s[6] == 1) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player1)
+
         $("td#2").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -666,15 +612,7 @@ function isGameOver() {
         return 1;
     }
     if(s[0] == 2 && s[1] == 2 && s[2] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
+        setStateToWinner(player2)
         
         $("td#0").animate({
             fontSize: "50px",
@@ -692,16 +630,8 @@ function isGameOver() {
         return 1;
     }
     if(s[3] == 2 && s[4] == 2 && s[5] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#3").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -718,16 +648,8 @@ function isGameOver() {
         return 1;
     }
     if(s[6] == 2 && s[7] == 2 && s[8] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#6").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -744,16 +666,8 @@ function isGameOver() {
         return 1;
     }
     if(s[0] == 2 && s[3] == 2 && s[6] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#0").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -770,16 +684,8 @@ function isGameOver() {
         return 1;
     }
     if(s[1] == 2 && s[4] == 2 && s[7] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#1").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -796,16 +702,8 @@ function isGameOver() {
         return 1;
     }
     if(s[2] == 2 && s[5] == 2 && s[8] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#2").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -822,16 +720,8 @@ function isGameOver() {
         return 1;
     }
     if(s[0] == 2 && s[4] == 2 && s[8] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#0").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -848,16 +738,8 @@ function isGameOver() {
         return 1;
     }
     if(s[2] == 2 && s[4] == 2 && s[6] == 2) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(player2)
+
         $("td#2").animate({
             fontSize: "50px",
             borderWidth: "10px"
@@ -874,16 +756,8 @@ function isGameOver() {
         return 1;
     }
     if(s[0] != 0 && s[1] != 0 && s[2] != 0 && s[3] != 0 && s[4] != 0 && s[5] != 0 && s[6] != 0 && s[7] != 0 && s[8] != 0) {
-        s[0] = 3;
-        s[1] = 3;
-        s[2] = 3;
-        s[3] = 3;
-        s[4] = 3;
-        s[5] = 3;
-        s[6] = 3;
-        s[7] = 3;
-        s[8] = 3;
-        
+        setStateToWinner(tie)
+
         $("table").animate({
             borderWidth: "10px"
         }, 1500 );
@@ -893,7 +767,7 @@ function isGameOver() {
     
     return 0;
 }
-
+/* istanbul ignore next */
 function newGamePlayerFirst() {
     $("td").animate({
         fontSize: "30px",
@@ -923,7 +797,7 @@ function newGamePlayerFirst() {
     $("td#7").html("&nbsp;");
     $("td#8").html("&nbsp;");
 }
-
+/* istanbul ignore next */
 function newGameComputerFirst() {
     $("td").animate({
         fontSize: "30px",
@@ -952,4 +826,37 @@ function newGameComputerFirst() {
     $("td#6").html("&nbsp;");
     $("td#7").html("&nbsp;");
     $("td#8").html("O");
+}
+
+function changeState(index, player){
+    s[index] = player
+    return s
+}
+
+function resetState(){
+    s = [0,0,0,0,0,0,0,0,0]
+    return s
+}
+
+function getState() {
+    return s
+}
+
+function setStateToWinner(winner) {
+    s.forEach((space, index) => {
+        s[index] = winner
+    })
+}
+
+module.exports = {
+    newGameComputerFirst, 
+    newGamePlayerFirst, 
+    isGameOver, 
+    makeMove, 
+    check4Win, 
+    computerMove, 
+    calculateTurnNumber,
+    changeState,
+    resetState,
+    getState
 }

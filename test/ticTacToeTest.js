@@ -861,21 +861,6 @@ describe("TicTacToe.js", function() {
         expect(expected).eql(actual);
         expect(actualState[expectedMoveIndex]).to.equal(expectedMoveToken)
       });
-
-      it( "blocks a player win by blocking a fork (Special case #12)", function() {
-        let expected = 0
-        let expectedMoveIndex = 8
-        let expectedMoveToken = 2
-        
-        fillSpaces([5, 6], 1)
-        fillSpaces([4], 2)
-        ttt.makeMove()
-        let actual = ttt.isGameOver()
-        let actualState = ttt.getState()
-
-        expect(expected).eql(actual);
-        expect(actualState[expectedMoveIndex]).to.equal(expectedMoveToken)
-      });
     });
 
     describe.skip("AI Smoke Test", () => {

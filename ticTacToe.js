@@ -3,6 +3,43 @@ var $ = require('jquery')
 var s = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0); //Default value for squares is empty
 var numPlayers = 1; //Default number of players is 1
 
+function executeTurnCycle(index) {
+    const avaliable = 0;
+    if(getStateAtIndex(index) == avaliable){
+        if (numPlayers == 2){
+            performMove(index, getPlayerToken(), getPlayerIndicator())
+            isGameOver()
+        }
+
+        if(numPlayers == 1){
+            performMove(index, "X", 1)
+
+            if(!isGameOver()) {
+                computerMove();
+                isGameOver();
+            }
+        }
+    }
+}
+
+function updateBoard(index, token) {
+    $(`td#${index}`).html(token)
+}
+
+function performMove(index, token, indicator) {
+    updateBoard(index, token)
+    changeState(index, indicator)
+    // enqueue the move
+}
+
+function getPlayerToken() {
+    return calculateTurnNumber() % 2 == 0 ? "X" : "O"
+}
+
+function getPlayerIndicator() {
+    return calculateTurnNumber() % 2 == 0 ? 1 : 2
+}
+
 /* istanbul ignore next */
 $(document).ready(function() {
     $("span#userFirst").click(function() {
@@ -19,30 +56,7 @@ $(document).ready(function() {
     });
     
     $("td#0").click(function() {
-        if(s[0] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#0").html("X");
-                    s[0] = 1;
-                }
-                else {
-                    $("td#0").html("O");
-                    s[0] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#0").html("X");
-                s[0] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
+        executeTurnCycle(0)
     });
     $("td#1").click(function() {
         if(s[1] == 0) {
@@ -827,6 +841,10 @@ function newGameComputerFirst() {
     $("td#6").html("&nbsp;");
     $("td#7").html("&nbsp;");
     $("td#8").html("O");
+}
+
+function getStateAtIndex(index) {
+    return getState()[index]
 }
 
 function changeState(index, player){

@@ -1,5 +1,5 @@
 let tttLite = require('../ticTacToeLite.js')
-let helpers = require('./ticTacToeLiteTestHelpers')
+let helpers = require('./unitTestHelpers')
 
 describe("ticTacToeLite.js", function() {
 

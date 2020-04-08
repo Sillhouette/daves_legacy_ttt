@@ -3,42 +3,7 @@ var $ = require('jquery')
 var s = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0); //Default value for squares is empty
 var numPlayers = 1; //Default number of players is 1
 
-function executeTurnCycle(index) {
-    const avaliable = 0;
-    if(getStateAtIndex(index) == avaliable){
-        if (numPlayers == 2){
-            performMove(index, getPlayerToken(), getPlayerIndicator())
-            isGameOver()
-        }
-
-        if(numPlayers == 1){
-            performMove(index, "X", 1)
-
-            if(!isGameOver()) {
-                computerMove();
-                isGameOver();
-            }
-        }
-    }
-}
-
-function updateBoard(index, token) {
-    $(`td#${index}`).html(token)
-}
-
-function performMove(index, token, indicator) {
-    updateBoard(index, token)
-    changeState(index, indicator)
-    // enqueue the move
-}
-
-function getPlayerToken() {
-    return calculateTurnNumber() % 2 == 0 ? "X" : "O"
-}
-
-function getPlayerIndicator() {
-    return calculateTurnNumber() % 2 == 0 ? 1 : 2
-}
+let turnCount = 0
 
 /* istanbul ignore next */
 $(document).ready(function() {
@@ -54,434 +19,192 @@ $(document).ready(function() {
         numPlayers = 2;
         newGamePlayerFirst();
     });
-    
-    $("td#0").click(function() {
-        executeTurnCycle(0)
-    });
-    $("td#1").click(function() {
-        if(s[1] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#1").html("X");
-                    s[1] = 1;
-                }
-                else {
-                    $("td#1").html("O");
-                    s[1] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#1").html("X");
-                s[1] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
+
+    $("td").each(function(index, element) {
+        element.onclick = function() {
+            executeTurnCycle(index)
         }
-    });
-    $("td#2").click(function() {
-        if(s[2] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#2").html("X");
-                    s[2] = 1;
-                }
-                else {
-                    $("td#2").html("O");
-                    s[2] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#2").html("X");
-                s[2] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    $("td#3").click(function() {
-        if(s[3] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#3").html("X");
-                    s[3] = 1;
-                }
-                else {
-                    $("td#3").html("O");
-                    s[3] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#3").html("X");
-                s[3] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    $("td#4").click(function() {
-        if(s[4] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#4").html("X");
-                    s[4] = 1;
-                }
-                else {
-                    $("td#4").html("O");
-                    s[4] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#4").html("X");
-                s[4] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    $("td#5").click(function() {
-        if(s[5] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#5").html("X");
-                    s[5] = 1;
-                }
-                else {
-                    $("td#5").html("O");
-                    s[5] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#5").html("X");
-                s[5] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    $("td#6").click(function() {
-        if(s[6] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#6").html("X");
-                    s[6] = 1;
-                }
-                else {
-                    $("td#6").html("O");
-                    s[6] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#6").html("X");
-                s[6] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    $("td#7").click(function() {
-        if(s[7] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#7").html("X");
-                    s[7] = 1;
-                }
-                else {
-                    $("td#7").html("O");
-                    s[7] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#7").html("X");
-                s[7] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    $("td#8").click(function() {
-        if(s[8] == 0) {
-            if(numPlayers == 2) {
-                if(calculateTurnNumber() % 2 == 0) {
-                    $("td#8").html("X");
-                    s[8] = 1;
-                }
-                else {
-                    $("td#8").html("O");
-                    s[8] = 2;
-                }
-                
-                isGameOver();
-            }
-            
-            if(numPlayers == 1) {
-                $("td#8").html("X");
-                s[8] = 1;
-              
-                if(isGameOver() == 0) {
-                    computerMove();
-                    isGameOver();
-                }
-            }
-        }
-    });
-    
+    })
 });
-/* istanbul ignore next */
-function calculateTurnNumber() {
+
+function numSpacesTaken() {
     x = 0;
     for (n in s) {
         if(s[n] !=0) {
             x++;
         }
     }
-    
     return x;
 }
+
 /* istanbul ignore next */
 function computerMove() {
-    if(calculateTurnNumber() == 1) {
+    let move = undefined
+    if(numSpacesTaken() == 1) {
         if(s[4] == 0) {
-            $("td#4").html("O");
-            s[4] = 2;
+            move = 4
         }
         else {
-            $("td#8").html("O");
-            s[8] = 2;
+            move = 8
+        }
+    } else {
+        move = check4Win()
+        if(move == undefined) {
+            move = makeMove();
         }
     }
-    else if(check4Win() == 0) {
-        makeMove();
-    }
+    return move
 }
 
 function check4Win() {
+    let move = undefined
     //When to play top-left
     if(((s[1] == 2 && s[2] == 2) || (s[4] == 2 && s[8] == 2) || (s[3] == 2 && s[6] == 2)) && s[0] == 0) {
-        $("td#0").html("O");
-        s[0] = 2;
-        return 1;
+        move = 0
     }
     //When to play top-center
     else if(((s[4] == 2 && s[7] == 2) || (s[0] == 2 && s[2] == 2)) && s[1] == 0) {
-        $("td#1").html("O");
-        s[1] = 2;
-        return 1;
+        move = 1
     }
     //When to play top-right
     else if(((s[1] == 2 && s[0] == 2) || (s[4] == 2 && s[6] == 2) || (s[5] == 2 && s[8] == 2)) && s[2] == 0) {
-        $("td#2").html("O");
-        s[2] = 2;
-        return 1;
+        move = 2
     }
     //When to play middle-left
     else if(((s[4] == 2 && s[5] == 2) || (s[0] == 2 && s[6] == 2)) && s[3] == 0) {
-        $("td#3").html("O");
-        s[3] = 2;
-        return 1;
+        move = 3
     }
     //When to play middle
     else if(((s[0] == 2 && s[8] == 2) || (s[1] == 2 && s[7] == 2) || (s[2] == 2 && s[6] == 2) || (s[3] == 2 && s[5] == 2)) && s[4] == 0) {
-        $("td#4").html("O");
-        s[4] = 2;
-        return 1;
+        move = 4
     }
     //When to play middle-right
     else if(((s[4] == 2 && s[3] == 2) || (s[2] == 2 && s[8] == 2)) && s[5] == 0) {
-        $("td#5").html("O");
-        s[5] = 2;
-        return 1;
+        move = 5
     }
     //When to play bottom-left
     else if(((s[0] == 2 && s[3] == 2) || (s[2] == 2 && s[4] == 2) || (s[7] == 2 && s[8] == 2)) && s[6] == 0) {
-        $("td#6").html("O");
-        s[6] = 2;
-        return 1;
+        move = 6
     }
     //When to play bottom center
     else if(((s[4] == 2 && s[1] == 2) || (s[6] == 2 && s[8] == 2)) && s[7] == 0) {
-        $("td#7").html("O");
-        s[7] = 2;
-        return 1;
+        move = 7
     }
     //When to play bottom-right
     else if(((s[6]== 2 && s[7] == 2) || (s[0] == 2 && s[4] == 2) || (s[2] == 2 && s[5] == 2)) && s[8] == 0) {
-        $("td#8").html("O");
-        s[8] = 2;
-        return 1;
+        move = 8
     }
     
-    return 0;
+    return move;
 }
 
 function makeMove() {
+    let move = undefined
     //Special Case
     if(s[0] == 0 && s[1]== 2 && s[2]== 1 && s[3]== 0 && s[4]== 0 && s[5]== 0 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
-        $("td#8").html("O");
-        s[8] = 2;
+        move = 8
     }
     //Special Case
     else if(s[0] == 0 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 1 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
-        $("td#8").html("O");
-        s[8] = 2;
+        move = 8
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 2 && s[2]== 0 && s[3]== 0 && s[4]== 0 && s[5]== 0 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
-        $("td#8").html("O");
-        s[8] = 2;
+        move = 8
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 0 && s[6]== 0 && s[7]== 1 && s[8]== 2) {
-        $("td#2").html("O");
-        s[2] = 2;
+        move = 2
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 1 && s[6]== 0 && s[7]== 0 && s[8]== 2) {
-        $("td#6").html("O");
-        s[6] = 2;
+        move = 6
     }
     //Speical Case
     else if(s[0] == 0 && s[1]== 0 && s[2]== 1 && s[3]== 0 && s[4]== 2 && s[5]== 0 && s[6]== 1 && s[7]== 0 && s[8]== 0) {
-        $("td#1").html("O");
-        s[1] = 2;
+        move = 1
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 1 && s[5]== 0 && s[6]== 0 && s[7]== 0 && s[8]== 2) {
-        $("td#2").html("O");
-        s[2] = 2;
+        move = 2
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 1 && s[6]== 0 && s[7]== 0 && s[8]== 0) {
-        $("td#7").html("O");
-        s[7] = 2;
+        move = 7
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 0 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
-        $("td#3").html("O");
-        s[3] = 2;
+        move = 3
     }
     //Speical Case
     else if(s[0] == 1 && s[1]== 0 && s[2]== 0 && s[3]== 2 && s[4]== 2 && s[5]== 1 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
-        $("td#8").html("O");
-        s[8] = 2;
+        move = 8
     }
     //Speical Case
     else if(s[0] == 0 && s[1]== 0 && s[2]== 1 && s[3]== 0 && s[4]== 2 && s[5]== 0 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
-        $("td#5").html("O");
-        s[5] = 2;
+        move = 5
     }
     //Speical Case (Fixes bug in the ai decision making tree)
     else if(s[0] == 0 && s[1]== 0 && s[2]== 0 && s[3]== 0 && s[4]== 2 && s[5]== 1 && s[6]== 1 && s[7]== 0 && s[8]== 0) {
-        $("td#5").html("O");
-        s[8] = 2;
+        move = 8
     }
     //When to play top-left defensively
     else if(((s[1] == 1 && s[2] == 1) || (s[4] == 1 && s[8] == 1) || (s[3] == 1 && s[6] == 1)) && s[0] == 0) {
-        $("td#0").html("O");
-        s[0] = 2;
+        move = 0
     }
     //When to play top-center defensively
     else if(((s[4] == 1 && s[7] == 1) || (s[0] == 1 && s[2] == 1)) && s[1] == 0) {
-        $("td#1").html("O");
-        s[1] = 2;
+        move = 1
     }
     //When to play top-right defensively
     else if(((s[1] == 1 && s[0] == 1) || (s[4] == 1 && s[6] == 1) || (s[5] == 1 && s[8] == 1)) && s[2] == 0) {
-        $("td#2").html("O");
-        s[2] = 2;
+        move = 2
     }
     //When to play middle-left defensively
     else if(((s[4] == 1 && s[5] == 1) || (s[0] == 1 && s[6] == 1)) && s[3] == 0) {
-        $("td#3").html("O");
-        s[3] = 2;
+        move = 3
     }
     //When to play middle defensively
     else if(((s[0] == 1 && s[8] == 1) || (s[1] == 1 && s[7] == 1) || (s[2] == 1 && s[6] == 1) || (s[3] == 1 && s[5] == 1)) && s[4] == 0) {
-        $("td#4").html("O");
-        s[4] = 2;
+        move = 4
     }
     //When to play middle-right defensively
     else if(((s[4] == 1 && s[3] == 1) || (s[2] == 1 && s[8] == 1)) && s[5] == 0) {
-        $("td#5").html("O");
-        s[5] = 2;
+        move = 5
     }
     //When to play bottom-left defensively
     else if(((s[0] == 1 && s[3] == 1) || (s[2] == 1 && s[4] == 1) || (s[7] == 1 && s[8] == 1)) && s[6] == 0) {
-        $("td#6").html("O");
-        s[6] = 2;
+        move = 6
     }
     //When to play bottom-center defensively
     else if(((s[4] == 1 && s[1] == 1) || (s[6] == 1 && s[8] == 1)) && s[7] == 0) {
-        $("td#7").html("O");
-        s[7] = 2;
+        move = 7
     }
     //When to play bottom-right defensively
     else if(((s[6]== 1 && s[7] == 1) || (s[0] == 1 && s[4] == 1) || (s[2] == 1 && s[5] == 1)) && s[8] == 0) {
-        $("td#8").html("O");
-        s[8] = 2;
+        move = 8
     }
     //Special Case for if the middle space is still open after all other defensive evaluations
     else if(s[4] == 0) {
-        $("td#4").html("O");
-        s[4] = 2;
+        move = 4
     }
     //When to play the first available space
     else {
         for (n in s) {
             if(s[n] == 0) {
-                $("td#"+n).html("O");
-                s[n] = 2;
+                move = parseInt(n)
                 break;
             }
         }
     }
+    return move
 }
 
 function isGameOver() {
     let player1 = 1
     let player2 = 2
     let tie = 3
+
     if(s[0] == 1 && s[1] == 1 && s[2] == 1) {
         setStateToWinner(player1)
         
@@ -792,25 +515,8 @@ function newGamePlayerFirst() {
             borderWidth: "1px"
     }, 150 );
     
-    s[0] = 0;
-    s[1] = 0;
-    s[2] = 0;
-    s[3] = 0;
-    s[4] = 0;
-    s[5] = 0;
-    s[6] = 0;
-    s[7] = 0;
-    s[8] = 0;
-    
-    $("td#0").html("&nbsp;");
-    $("td#1").html("&nbsp;");
-    $("td#2").html("&nbsp;");
-    $("td#3").html("&nbsp;");
-    $("td#4").html("&nbsp;");
-    $("td#5").html("&nbsp;");
-    $("td#6").html("&nbsp;");
-    $("td#7").html("&nbsp;");
-    $("td#8").html("&nbsp;");
+    resetState()
+    resetBoardUI()
 }
 /* istanbul ignore next */
 function newGameComputerFirst() {
@@ -822,39 +528,70 @@ function newGameComputerFirst() {
             borderWidth: "1px"
     }, 150 );
     
-    s[0] = 0;
-    s[1] = 0;
-    s[2] = 0;
-    s[3] = 0;
-    s[4] = 0;
-    s[5] = 0;
-    s[6] = 0;
-    s[7] = 0;
-    s[8] = 2;
-    
-    $("td#0").html("&nbsp;");
-    $("td#1").html("&nbsp;");
-    $("td#2").html("&nbsp;");
-    $("td#3").html("&nbsp;");
-    $("td#4").html("&nbsp;");
-    $("td#5").html("&nbsp;");
-    $("td#6").html("&nbsp;");
-    $("td#7").html("&nbsp;");
-    $("td#8").html("O");
+    resetState()
+    resetBoardUI()
+    updateBoard(8, "O")
+    changeState(8, 2)
+}
+
+/* istanbul ignore next */
+function executeTurnCycle(index) {
+    const avaliable = 0;
+    if(getStateAtIndex(index) === avaliable){
+        if (numPlayers === 2){
+            performMove(index, getPlayerToken(), getPlayerIndicator())
+        }
+
+        if(numPlayers === 1){
+            performMove(index, "X", 1)
+            if(!isGameOver()) {
+                console.log("hit")
+                performMove(computerMove(), "O", 2)
+            }
+        }
+    }
+}
+
+/* istanbul ignore next */
+function performMove(index, token, indicator) {
+    updateBoard(index, token)
+    changeState(index, indicator)
+    if (turnCount > 6){
+        //initiate token deletion
+    }
+    turnCount++
+    // enqueue the move
+    isGameOver()
+}
+
+function resetBoardUI() {
+    $("td").each(function(index, element) {
+        element.innerHTML = "&nbsp;"
+    })
+}
+
+function updateBoard(index, token) {
+    $(`td#${index}`).html(token)
+}
+
+function changeState(index, player){
+    s[index] = player
+}
+
+function getPlayerToken() {
+    return numSpacesTaken() % 2 == 0 ? "X" : "O"
+}
+
+function getPlayerIndicator() {
+    return numSpacesTaken() % 2 == 0 ? 1 : 2
 }
 
 function getStateAtIndex(index) {
     return getState()[index]
 }
 
-function changeState(index, player){
-    s[index] = player
-    return s
-}
-
 function resetState(){
     s = [0,0,0,0,0,0,0,0,0]
-    return s
 }
 
 function getState() {
@@ -874,8 +611,14 @@ module.exports = {
     makeMove, 
     check4Win, 
     computerMove, 
-    calculateTurnNumber,
+    numSpacesTaken,
     changeState,
     resetState,
-    getState
+    getState,
+    updateBoard,
+    setStateToWinner,
+    getStateAtIndex,
+    getPlayerIndicator,
+    getPlayerToken,
+    resetBoardUI
 }

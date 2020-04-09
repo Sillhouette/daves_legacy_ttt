@@ -1,19 +1,15 @@
+let Queue = require("./queue").Queue
+let moveHistory = new Queue()
 
-function executeTokenRemoval(index) {
-    resetPosition(index)
-    clearTokenFromBoard(index)
+function addMoveToHistory(move) {
+    moveHistory.add(move)
 }
 
-function resetPosition(index) {
-    ttt.getState()[index] = 0
-}
-
-function clearTokenFromBoard(index){
-    $(`td#${index}`).html("&nbsp;")
+function getRemovalIndex() {
+    return moveHistory.remove()
 }
 
 module.exports = {
-    resetPosition,
-    clearTokenFromBoard,
-    executeTokenRemoval
+    getRemovalIndex,
+    addMoveToHistory
 }

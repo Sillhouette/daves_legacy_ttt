@@ -36,7 +36,7 @@ $(document).ready(function() {
 
     $("td").each(function(index, element) {
         element.onclick = function() {
-            executeTurnCycle(index)
+            executeTurnCycle(index, numPlayers)
         }
     })
 });
@@ -64,7 +64,7 @@ function computerMove() {
     } else {
         move = check4Win()
         if(move == undefined) {
-            move = makeMove();
+            move = getMove();
         }
     }
     return move
@@ -112,7 +112,7 @@ function check4Win() {
     return move;
 }
 
-function makeMove() {
+function getMove() {
     let move = undefined
     //Special Case
     if(s[0] == 0 && s[1]== 2 && s[2]== 1 && s[3]== 0 && s[4]== 0 && s[5]== 0 && s[6]== 0 && s[7]== 1 && s[8]== 0) {
@@ -214,297 +214,120 @@ function makeMove() {
     return move
 }
 
+function animateWinner(combo) {
+    $(`td#${combo[0]}`).animate({
+        fontSize: "50px",
+        borderWidth: "10px"
+    }, 1500 );
+    $(`td#${combo[1]}`).animate({
+        fontSize: "50px",
+        borderWidth: "10px"
+    }, 1500 );
+    $(`td#${combo[2]}`).animate({
+        fontSize: "50px",
+        borderWidth: "10px"
+    }, 1500 );
+}
+
 function isGameOver() {
     let player1 = 1
     let player2 = 2
     let tie = 3
-
+    let combo = []
     if(s[0] == 1 && s[1] == 1 && s[2] == 1) {
+        combo = [0,1,2]
         setStateToWinner(player1)
-        
-        $("td#0").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#1").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#2").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[3] == 1 && s[4] == 1 && s[5] == 1) {
+        combo = [3,4,5]
         setStateToWinner(player1)
-        
-        $("td#3").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#5").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[6] == 1 && s[7] == 1 && s[8] == 1) {
+        combo = [6,7,8]
         setStateToWinner(player1)
-        
-        $("td#6").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#7").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#8").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[0] == 1 && s[3] == 1 && s[6] == 1) {
+        combo = [0,3,6]
         setStateToWinner(player1)
-        
-        $("td#0").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#3").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#6").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[1] == 1 && s[4] == 1 && s[7] == 1) {
+        combo = [1,4,7]
         setStateToWinner(player1)
-
-        $("td#1").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#7").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[2] == 1 && s[5] == 1 && s[8] == 1) {
+        combo = [2,5,8]
         setStateToWinner(player1)
-
-        $("td#2").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#5").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#8").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[0] == 1 && s[4] == 1 && s[8] == 1) {
+        combo = [0,4,8]
         setStateToWinner(player1)
-
-        $("td#0").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#8").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[2] == 1 && s[4] == 1 && s[6] == 1) {
+        combo = [2,4,6]
         setStateToWinner(player1)
-
-        $("td#2").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#6").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[0] == 2 && s[1] == 2 && s[2] == 2) {
+        combo = [0,1,2]
         setStateToWinner(player2)
-        
-        $("td#0").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#1").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#2").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[3] == 2 && s[4] == 2 && s[5] == 2) {
+        combo = [3,4,5]
         setStateToWinner(player2)
-
-        $("td#3").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#5").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[6] == 2 && s[7] == 2 && s[8] == 2) {
+        combo = [6,7,8]
         setStateToWinner(player2)
-
-        $("td#6").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#7").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#8").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[0] == 2 && s[3] == 2 && s[6] == 2) {
+        combo = [0,3,6]
         setStateToWinner(player2)
-
-        $("td#0").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#3").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#6").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[1] == 2 && s[4] == 2 && s[7] == 2) {
+        combo = [1,4,7]
         setStateToWinner(player2)
-
-        $("td#1").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#7").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[2] == 2 && s[5] == 2 && s[8] == 2) {
+        combo = [2,5,8]
         setStateToWinner(player2)
-
-        $("td#2").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#5").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#8").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[0] == 2 && s[4] == 2 && s[8] == 2) {
+        combo = [0,4,8]
         setStateToWinner(player2)
-
-        $("td#0").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#8").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[2] == 2 && s[4] == 2 && s[6] == 2) {
+        combo = [2,4,6]
         setStateToWinner(player2)
-
-        $("td#2").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#4").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        $("td#6").animate({
-            fontSize: "50px",
-            borderWidth: "10px"
-        }, 1500 );
-        
+        animateWinner(combo)
         return 1;
     }
     if(s[0] != 0 && s[1] != 0 && s[2] != 0 && s[3] != 0 && s[4] != 0 && s[5] != 0 && s[6] != 0 && s[7] != 0 && s[8] != 0) {
@@ -521,14 +344,6 @@ function isGameOver() {
 }
 /* istanbul ignore next */
 function newGamePlayerFirst() {
-    $("td").animate({
-        fontSize: "30px",
-        borderWidth: "1px"
-    }, 150 );
-    $("table").animate({
-            borderWidth: "1px"
-    }, 150 );
-    
     turnCount = 0
     disableLite()
     resetState()
@@ -536,14 +351,6 @@ function newGamePlayerFirst() {
 }
 /* istanbul ignore next */
 function newGameComputerFirst() {
-    $("td").animate({
-        fontSize: "30px",
-        borderWidth: "1px"
-    }, 150 );
-    $("table").animate({
-            borderWidth: "1px"
-    }, 150 );
-    
     turnCount = 0
     disableLite()
     resetState()
@@ -553,14 +360,6 @@ function newGameComputerFirst() {
 }
 /* istanbul ignore next */
 function newLiteGamePlayerFirst() {
-    $("td").animate({
-        fontSize: "30px",
-        borderWidth: "1px"
-    }, 150 );
-    $("table").animate({
-            borderWidth: "1px"
-    }, 150 );
-
     turnCount = 0
     enableLite()
     resetState()
@@ -568,14 +367,6 @@ function newLiteGamePlayerFirst() {
 }
 /* istanbul ignore next */
 function newLiteGameComputerFirst() {
-    $("td").animate({
-        fontSize: "30px",
-        borderWidth: "1px"
-    }, 150 );
-    $("table").animate({
-            borderWidth: "1px"
-    }, 150 );
-
     enableLite()
     resetState()
     resetBoardUI()
@@ -583,20 +374,22 @@ function newLiteGameComputerFirst() {
     performMove(8, "O", 2)
 }
 
-/* istanbul ignore next */
-function executeTurnCycle(index) {
+function executeTurnCycle(index, numPlayers) {
     const avaliable = 0;
+    let computerChoice;
     if(getStateAtIndex(index) === avaliable){
         if (numPlayers === 2){
             performMove(index, getPlayerToken(), getPlayerIndicator())
+            return [index]
         }
 
-        if(numPlayers === 1){
-            performMove(index, "X", 1)
-            if(!isGameOver()) {
-                performMove(computerMove(), "O", 2)
-            }
+        performMove(index, "X", 1)
+        if(isGameOver()) {
+            return [index]
         }
+        computerChoice = computerMove()
+        performMove(computerChoice, "O", 2)
+        return [index, computerChoice]
     }
 }
 
@@ -619,6 +412,14 @@ function resetBoardUI() {
     $("td").each(function(index, element) {
         element.innerHTML = "&nbsp;"
     })
+
+    $("td").animate({
+        fontSize: "30px",
+        borderWidth: "1px"
+    }, 150 );
+    $("table").animate({
+            borderWidth: "1px"
+    }, 150 );
 }
 
 function removeToken(index) {
@@ -674,7 +475,7 @@ module.exports = {
     newGameComputerFirst, 
     newGamePlayerFirst, 
     isGameOver, 
-    makeMove, 
+    getMove, 
     check4Win, 
     computerMove, 
     numSpacesTaken,
@@ -690,5 +491,6 @@ module.exports = {
     performMove,
     enableLite,
     disableLite,
-    removeToken
+    removeToken,
+    executeTurnCycle
 }

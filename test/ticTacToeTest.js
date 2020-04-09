@@ -315,7 +315,7 @@ describe("TicTacToe.js", function() {
       });
     });
 
-    describe("#makeMove", function() {
+    describe("#getMove", function() {
       this.beforeEach(function(){
         ttt.resetState()
       })
@@ -323,7 +323,7 @@ describe("TicTacToe.js", function() {
       it( "takes the middle space if avaliable", function() {
         let expected = 4
 
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -332,7 +332,7 @@ describe("TicTacToe.js", function() {
         let expected = 0
 
         ttt.changeState(4, 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).equal(expected);
       });
@@ -341,7 +341,7 @@ describe("TicTacToe.js", function() {
         let expected = 0
 
         fillSpaces([1, 2], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -350,7 +350,7 @@ describe("TicTacToe.js", function() {
         let expected = 0
 
         fillSpaces([4, 8], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(expected).eql(actual)
       });
@@ -359,7 +359,7 @@ describe("TicTacToe.js", function() {
         let expected = 0
 
         fillSpaces([3, 6], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -368,7 +368,7 @@ describe("TicTacToe.js", function() {
         let expected = 1
 
         fillSpaces([4, 7], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -377,7 +377,7 @@ describe("TicTacToe.js", function() {
         let expected = 1
         
         fillSpaces([0, 2], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -386,7 +386,7 @@ describe("TicTacToe.js", function() {
         let expected = 2
         
         fillSpaces([0, 1], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -395,7 +395,7 @@ describe("TicTacToe.js", function() {
         let expected = 2
         
         fillSpaces([4, 6], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -404,7 +404,7 @@ describe("TicTacToe.js", function() {
         let expected = 2
         
         fillSpaces([5, 8], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -413,7 +413,7 @@ describe("TicTacToe.js", function() {
         let expected = 3
         
         fillSpaces([4, 5], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -422,7 +422,7 @@ describe("TicTacToe.js", function() {
         let expected = 3
         
         fillSpaces([0, 6], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -431,7 +431,7 @@ describe("TicTacToe.js", function() {
         let expected = 4
         
         fillSpaces([0, 8], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -440,7 +440,7 @@ describe("TicTacToe.js", function() {
         let expected = 4
         
         fillSpaces([1, 7], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -449,7 +449,7 @@ describe("TicTacToe.js", function() {
         let expected = 4
         
         fillSpaces([2, 6], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -458,7 +458,7 @@ describe("TicTacToe.js", function() {
         let expected = 4
         
         fillSpaces([3, 5], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -467,7 +467,7 @@ describe("TicTacToe.js", function() {
         let expected = 5
         
         fillSpaces([4, 3], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -476,7 +476,7 @@ describe("TicTacToe.js", function() {
         let expected = 5
         
         fillSpaces([2, 8], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -485,7 +485,7 @@ describe("TicTacToe.js", function() {
         let expected = 6
         
         fillSpaces([0, 3], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -494,7 +494,7 @@ describe("TicTacToe.js", function() {
         let expected = 6
         
         fillSpaces([2, 4], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -503,7 +503,7 @@ describe("TicTacToe.js", function() {
         let expected = 6
         
         fillSpaces([7, 8], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -512,7 +512,7 @@ describe("TicTacToe.js", function() {
         let expected = 7
         
         fillSpaces([4, 1], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -521,7 +521,7 @@ describe("TicTacToe.js", function() {
         let expected = 7
         
         fillSpaces([6, 8], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -530,7 +530,7 @@ describe("TicTacToe.js", function() {
         let expected = 8
         
         fillSpaces([6, 7], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -539,7 +539,7 @@ describe("TicTacToe.js", function() {
         let expected = 8
         
         fillSpaces([0, 4], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -548,7 +548,7 @@ describe("TicTacToe.js", function() {
         let expected = 8
         
         fillSpaces([2, 5], 1)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -558,7 +558,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([2, 7], 1)
         fillSpaces([1], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -568,7 +568,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([5, 7], 1)
         fillSpaces([4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -578,7 +578,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 7], 1)
         fillSpaces([1], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -588,7 +588,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 7], 1)
         fillSpaces([4, 8], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -598,7 +598,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 5], 1)
         fillSpaces([4, 8], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -608,7 +608,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([2, 6], 1)
         fillSpaces([4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -618,7 +618,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 4], 1)
         fillSpaces([8], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -628,7 +628,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 5], 1)
         fillSpaces([4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -638,7 +638,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 7], 1)
         fillSpaces([4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -648,7 +648,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([0, 5, 7], 1)
         fillSpaces([3, 4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -658,7 +658,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([2, 7], 1)
         fillSpaces([4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -668,7 +668,7 @@ describe("TicTacToe.js", function() {
         
         fillSpaces([5, 6], 1)
         fillSpaces([4], 2)
-        let actual = ttt.makeMove()
+        let actual = ttt.getMove()
 
         expect(actual).eql(expected);
       });
@@ -727,7 +727,7 @@ describe("TicTacToe.js", function() {
       })
     })
 
-    describe("AI Smoke Test", () => {
+    describe.skip("AI Smoke Test", () => {
       beforeEach(function() {
         ttt.disableLite()
       })
@@ -1077,6 +1077,40 @@ describe("TicTacToe.js", function() {
 
         expect(actualState).to.equal(expectedState)
         expect(actualBoardSpace).to.equal(expectedBoardSpace)
+      })
+    })
+
+    describe("#executeTurnCycle", function() {
+      it("returns an array containing a single move if there are two players", function(){
+        let index = 0
+        let numPlayers = 2
+        let expected = [index]
+
+        let actual = ttt.executeTurnCycle(index, numPlayers)
+
+        expect(actual).to.eql(expected)
+      })
+
+      it("returns an array containing two moves if there is one player and the game has not ended", function() {
+        let index = 0
+        let numPlayers = 1
+        let expected = [index, 4]
+
+        let actual = ttt.executeTurnCycle(index, numPlayers)
+
+        expect(actual).to.eql(expected)
+      })
+
+      it("returns an array containing a single move if there is one player and the game has ended", function() {
+        let index = 0
+        let numPlayers = 1
+        let expected = [index]
+
+        ttt.changeState(1, 1)
+        ttt.changeState(2, 1)
+        let actual = ttt.executeTurnCycle(index, numPlayers)
+
+        expect(actual).to.eql(expected)
       })
     })
   })

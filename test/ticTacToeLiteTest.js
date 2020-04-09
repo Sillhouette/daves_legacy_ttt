@@ -1,35 +1,34 @@
 let tttLite = require('../ticTacToeLite.js')
-let helpers = require('./unitTestHelpers')
+let Queue = require('../queue').Queue
 
 describe("ticTacToeLite.js", function() {
   this.beforeEach(function() {
         ttt.enableLite()
+        tttLite.setMoveHistory(new Queue())
   })
 
   describe("#addMoveToHistory", function() {
 
     it("can add a move to the history", function() {
-        expected = 4
+        let expected = 1
 
-        tttLite.addMoveToHistory(expected)
-        actual = tttLite.getRemovalIndex()
+        let history = tttLite.addMoveToHistory(expected)
+        let actual = history.data.length
 
         expect(actual).to.equal(expected)
     })
 
     it("can add multiple moves to the history", function() {
-        moves = [4, 6, 7, 2, 1]
+        let moves = [4, 6, 7, 2, 1]
+        let expected = 5
 
         moves.forEach(function(move){
-            tttLite.addMoveToHistory(move)
+            history = tttLite.addMoveToHistory(move)
         })
+        console.log(history.data)
+        let actual = history.data.length
 
-        moves.forEach(function(move, index){
-            expected = moves[index]
-            actual = tttLite.getRemovalIndex()
-
-            expect(actual).to.equal(expected)
-        })
+        expect(actual).to.equal(expected)
     })
 
   })
@@ -37,10 +36,10 @@ describe("ticTacToeLite.js", function() {
   describe("#getRemovalIndex", function() {
 
     it("returns the first token added to the queue", function() {
-        expected = 4
+        let expected = 4
 
-        tttLite.addMoveToHistory(expected)
-        actual = tttLite.getRemovalIndex()
+        tttLite.getMoveHistory().add(expected)
+        let actual = tttLite.getRemovalIndex()
 
         expect(actual).to.equal(expected)
     })
@@ -49,7 +48,7 @@ describe("ticTacToeLite.js", function() {
         moves = [4, 6, 7, 2, 1]
 
         moves.forEach(function(move){
-            tttLite.addMoveToHistory(move)
+            tttLite.getMoveHistory().add(move)
         })
 
         moves.forEach(function(move, index){

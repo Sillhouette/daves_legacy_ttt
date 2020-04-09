@@ -1,23 +1,37 @@
-var $ = require('jquery')
+let $ = require('jquery')
+let tttLite = require('./ticTacToeLite')
+let liteEnabled = false
 
 var s = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0); //Default value for squares is empty
-var numPlayers = 1; //Default number of players is 1
+let numPlayers = 1; //Default number of players is 1
 
 let turnCount = 0
 
 /* istanbul ignore next */
 $(document).ready(function() {
-    $("span#userFirst").click(function() {
+    $("span#userFirstClassic").click(function() {
         numPlayers = 1;
         newGamePlayerFirst();
     });
-    $("span#compFirst").click(function() {
+    $("span#compFirstClassic").click(function() {
         numPlayers = 1;
         newGameComputerFirst();
     });
-    $("span#twoPlayers").click(function() {
+    $("span#twoPlayersClassic").click(function() {
         numPlayers = 2;
         newGamePlayerFirst();
+    });
+    $("span#userFirstLite").click(function() {
+        numPlayers = 1;
+        newLiteGamePlayerFirst();
+    });
+    $("span#compFirstLite").click(function() {
+        numPlayers = 1;
+        newLiteGameComputerFirst();
+    });
+    $("span#twoPlayersLite").click(function() {
+        numPlayers = 2;
+        newLiteGamePlayerFirst();
     });
 
     $("td").each(function(index, element) {
@@ -515,6 +529,8 @@ function newGamePlayerFirst() {
             borderWidth: "1px"
     }, 150 );
     
+    turnCount = 0
+    disableLite()
     resetState()
     resetBoardUI()
 }
@@ -528,10 +544,43 @@ function newGameComputerFirst() {
             borderWidth: "1px"
     }, 150 );
     
+    turnCount = 0
+    disableLite()
     resetState()
     resetBoardUI()
     updateBoard(8, "O")
     changeState(8, 2)
+}
+/* istanbul ignore next */
+function newLiteGamePlayerFirst() {
+    $("td").animate({
+        fontSize: "30px",
+        borderWidth: "1px"
+    }, 150 );
+    $("table").animate({
+            borderWidth: "1px"
+    }, 150 );
+
+    turnCount = 0
+    enableLite()
+    resetState()
+    resetBoardUI()
+}
+/* istanbul ignore next */
+function newLiteGameComputerFirst() {
+    $("td").animate({
+        fontSize: "30px",
+        borderWidth: "1px"
+    }, 150 );
+    $("table").animate({
+            borderWidth: "1px"
+    }, 150 );
+
+    enableLite()
+    resetState()
+    resetBoardUI()
+    turnCount = 0
+    performMove(8, "O", 2)
 }
 
 /* istanbul ignore next */
@@ -545,7 +594,6 @@ function executeTurnCycle(index) {
         if(numPlayers === 1){
             performMove(index, "X", 1)
             if(!isGameOver()) {
-                console.log("hit")
                 performMove(computerMove(), "O", 2)
             }
         }
@@ -556,11 +604,14 @@ function executeTurnCycle(index) {
 function performMove(index, token, indicator) {
     updateBoard(index, token)
     changeState(index, indicator)
-    if (turnCount > 6){
-        //initiate token deletion
+    if (liteEnabled){
+        tttLite.addMoveToHistory(index)
+        if (turnCount > 5) {
+            index = tttLite.getRemovalIndex()
+            removeToken(index)
+        }
     }
     turnCount++
-    // enqueue the move
     isGameOver()
 }
 
@@ -568,6 +619,13 @@ function resetBoardUI() {
     $("td").each(function(index, element) {
         element.innerHTML = "&nbsp;"
     })
+}
+
+function removeToken(index) {
+    empty = "&nbsp;"
+    stateDefault = 0
+    updateBoard(index, empty)
+    changeState(index, stateDefault)
 }
 
 function updateBoard(index, token) {
@@ -604,6 +662,14 @@ function setStateToWinner(winner) {
     })
 }
 
+function enableLite() {
+    liteEnabled = true
+}
+
+function disableLite() {
+    liteEnabled = false
+}
+
 module.exports = {
     newGameComputerFirst, 
     newGamePlayerFirst, 
@@ -620,5 +686,9 @@ module.exports = {
     getStateAtIndex,
     getPlayerIndicator,
     getPlayerToken,
-    resetBoardUI
+    resetBoardUI,
+    performMove,
+    enableLite,
+    disableLite,
+    removeToken
 }

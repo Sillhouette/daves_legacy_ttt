@@ -20,6 +20,9 @@ function fillSpaces(indices, player){
 }
 
 describe("TicTacToe.js", function() {
+  this.beforeEach(function() {
+    ttt.disableLite()
+  })
 
   describe("Characterization Tests", function() {
 
@@ -724,9 +727,13 @@ describe("TicTacToe.js", function() {
       })
     })
 
-    describe.skip("AI Smoke Test", () => {
+    describe("AI Smoke Test", () => {
+      beforeEach(function() {
+        ttt.disableLite()
+      })
+
       it( "Wins against or ties a handicapped optimally playing AI with generative first three moves", function() {
-        let numGamesToTest = 4000
+        let numGamesToTest = 2000
         let aiUnderTest = 2
         let tie_game = 3
         let expected_results = [aiUnderTest, tie_game]
@@ -1052,6 +1059,24 @@ describe("TicTacToe.js", function() {
         let actual = ttt.getPlayerToken()
 
         expect(actual).to.equal(expected)
+      })
+    })
+
+    describe("#removeToken", function() {
+      it("removes a token that has been placed on the board", function() {
+        let index = 0
+        let token = "X"
+        let playerIndicator = 2
+        let expectedState = 0
+        let expectedBoardSpace = "&nbsp;"
+
+        ttt.performMove(index, token, playerIndicator)
+        ttt.removeToken(index)
+        let actualState = unitTestHelpers.getStateAtIndex(index)
+        let actualBoardSpace = $(`td#${index}`).html()
+
+        expect(actualState).to.equal(expectedState)
+        expect(actualBoardSpace).to.equal(expectedBoardSpace)
       })
     })
   })

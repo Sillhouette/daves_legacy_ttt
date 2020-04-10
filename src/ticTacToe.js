@@ -438,11 +438,19 @@ function changeState(index, player){
 }
 
 function getPlayerToken() {
-    return numSpacesTaken() % 2 == 0 ? "X" : "O"
+    return getTurnCount() % 2 == 0 ? "X" : "O"
 }
 
 function getPlayerIndicator() {
-    return numSpacesTaken() % 2 == 0 ? 1 : 2
+    return getTurnCount() % 2 == 0 ? 1 : 2
+}
+
+function getTurnCount() {
+    return turnCount
+}
+
+function setTurnCount(count) {
+    turnCount = count
 }
 
 function getStateAtIndex(index) {
@@ -492,5 +500,6 @@ module.exports = {
     enableLite,
     disableLite,
     removeToken,
-    executeTurnCycle
+    executeTurnCycle,
+    setTurnCount
 }

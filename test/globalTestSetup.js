@@ -9,7 +9,7 @@ JSDOM.fromFile('./test/test_dom.html')
 .then(dom => {
     global.window = dom.window
     global.document = dom.window.document
-    global.ttt = require('../ticTacToe.js')
+    global.ttt = require('../src/ticTacToe.js')
     global.$ = require('jquery')
 })
 .catch(error => console.log(error))

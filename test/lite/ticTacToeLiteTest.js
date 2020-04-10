@@ -1,5 +1,5 @@
-let tttLite = require('../ticTacToeLite.js')
-let Queue = require('../queue').Queue
+let tttLite = require('../../src/ticTacToeLite.js')
+let Queue = require('../../src/queue').Queue
 
 describe("ticTacToeLite.js", function() {
   this.beforeEach(function() {
@@ -25,7 +25,6 @@ describe("ticTacToeLite.js", function() {
         moves.forEach(function(move){
             history = tttLite.addMoveToHistory(move)
         })
-        console.log(history.data)
         let actual = history.data.length
 
         expect(actual).to.equal(expected)

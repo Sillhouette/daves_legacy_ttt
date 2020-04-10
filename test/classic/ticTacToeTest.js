@@ -1,6 +1,6 @@
-let characterizationTestHelpers = require("./characterizationTestHelpers")
-let unitTestHelpers = require("./unitTestHelpers")
-let smokeTestHelpers = require("./optimalAiSmokeTestHelpers")
+let characterizationTestHelpers = require("../helpers/characterizationTestHelpers")
+let unitTestHelpers = require("../helpers/unitTestHelpers")
+let smokeTestHelpers = require("../helpers/optimalAiSmokeTestHelpers")
 
 const WIN_COMBINATIONS = {
   "Top Row": [0, 1, 2],
@@ -27,11 +27,13 @@ describe("TicTacToe.js", function() {
   describe("Characterization Tests", function() {
 
     beforeEach(function() {
+      ttt.setTurnCount(0)
       ttt.resetState()
     });
 
     describe("#isGameOver", function() {
       this.beforeEach(function(){
+        ttt.setTurnCount(0)
         ttt.resetState()
       })
       
@@ -43,6 +45,7 @@ describe("TicTacToe.js", function() {
         let winningState = [1,1,1,1,1,1,1,1,1]
         Object.values(WIN_COMBINATIONS).forEach(function(combo) {
           ttt.resetState()
+          ttt.setTurnCount(0)
           ttt.changeState(combo[0], 1)
           ttt.changeState(combo[1], 1)
           ttt.changeState(combo[2], 1)
@@ -56,6 +59,7 @@ describe("TicTacToe.js", function() {
         let winningState = [2,2,2,2,2,2,2,2,2]
         Object.values(WIN_COMBINATIONS).forEach(function(combo) {
           ttt.resetState()
+          ttt.setTurnCount(0)
           ttt.changeState(combo[0], 2)
           ttt.changeState(combo[1], 2)
           ttt.changeState(combo[2], 2)
@@ -87,6 +91,7 @@ describe("TicTacToe.js", function() {
 
     describe("#check4Win", function() {
       this.beforeEach(function(){
+        ttt.setTurnCount(0)
         ttt.resetState()
       })
 
@@ -727,7 +732,7 @@ describe("TicTacToe.js", function() {
       })
     })
 
-    describe.skip("AI Smoke Test", () => {
+    describe("AI Smoke Test", () => {
       beforeEach(function() {
         ttt.disableLite()
       })
@@ -752,6 +757,7 @@ describe("TicTacToe.js", function() {
 
   describe("Unit Tests", function() {
     beforeEach(function() {
+      ttt.setTurnCount(0)
       ttt.resetState()
     });
 
@@ -969,7 +975,11 @@ describe("TicTacToe.js", function() {
     })
 
     describe("#getPlayerIndicator", function() {
-      it("returns 1 when the number of spaces taken is 0", function() {
+      beforeEach(function(){
+        ttt.setTurnCount(0)
+      })
+
+      it("returns 1 when the turn count is 0", function() {
         let expected = 1
 
         let actual = ttt.getPlayerIndicator()
@@ -977,37 +987,40 @@ describe("TicTacToe.js", function() {
         expect(actual).to.equal(expected)
       })
 
-      it("returns 2 when the number of spaces taken is 1", function() {
+      it("returns 2 when the turn count is 1", function() {
         let index = 1
         let player = 1
+        let token = "X"
         let expected = 2
 
-        ttt.changeState(index, player)
+        ttt.performMove(index, player, token)
         let actual = ttt.getPlayerIndicator()
 
         expect(actual).to.equal(expected)
       })
 
-      it("returns 2 when the number of spaces taken is odd", function() {
-        let indices = [1, 4, 3, 6, 8]
+      it("returns 2 when the number of turns taken is odd", function() {
+        let indices = [1, 2, 4]
         let player = 1
+        let token = "X"
         let expected = 2
 
         indices.forEach(function(index) {
-          ttt.changeState(index, player)
+          ttt.performMove(index, player, token)
         })
         let actual = ttt.getPlayerIndicator()
 
         expect(actual).to.equal(expected)
       })
 
-      it("returns 1 when the number of spaces taken is even", function() {
-        let indices = [1, 4, 3, 6, 8, 2]
+      it("returns 1 when the number of turns taken is even", function() {
+        let indices = [1, 2, 4, 8]
         let player = 2
+        let token = "X"
         let expected = 1
 
         indices.forEach(function(index) {
-          ttt.changeState(index, player)
+          ttt.performMove(index, player, token)
         })
         let actual = ttt.getPlayerIndicator()
 
@@ -1016,7 +1029,10 @@ describe("TicTacToe.js", function() {
     })
 
     describe("#getPlayerToken", function() {
-      it("returns X when the number of spaces taken is 0", function() {
+      beforeEach(function(){
+        ttt.setTurnCount(0)
+      })
+      it("returns X when the number of turns taken is 0", function() {
         let expected = "X"
 
         let actual = ttt.getPlayerToken()
@@ -1024,37 +1040,40 @@ describe("TicTacToe.js", function() {
         expect(actual).to.equal(expected)
       })
 
-      it("returns O when the number of spaces taken is 1", function() {
+      it("returns O when the number of turns taken is 1", function() {
         let index = 1
         let player = 1
+        let token = "X"
         let expected = "O"
 
-        ttt.changeState(index, player)
+        ttt.performMove(index, player, token)
         let actual = ttt.getPlayerToken()
 
         expect(actual).to.equal(expected)
       })
 
-      it("returns O when the number of spaces taken is odd", function() {
-        let indices = [1, 4, 3, 6, 8]
+      it("returns O when the number of turns taken is odd", function() {
+        let indices = [1, 2, 4]
         let player = 1
+        let token = "X"
         let expected = "O"
 
         indices.forEach(function(index) {
-          ttt.changeState(index, player)
+          ttt.performMove(index, player, token)
         })
         let actual = ttt.getPlayerToken()
 
         expect(actual).to.equal(expected)
       })
 
-      it("returns X when the number of spaces taken is even", function() {
-        let indices = [1, 4, 3, 6, 8, 2]
+      it("returns X when the number of turns taken is even", function() {
+        let indices = [1, 2, 4, 8]
         let player = 2
+        let token = "O"
         let expected = "X"
 
         indices.forEach(function(index) {
-          ttt.changeState(index, player)
+          ttt.performMove(index, player, token)
         })
         let actual = ttt.getPlayerToken()
 

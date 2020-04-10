@@ -1,5 +1,5 @@
 const helpers = require('./characterizationTestHelpers')
-let minimaxMoves = require('../minimax_moves.json')
+let minimaxMoves = require('./minimax_moves.json')
 
 function convertBoard() {
     let convertedBoard = []

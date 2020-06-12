@@ -28,7 +28,7 @@
     "nyc": "^15.0.0"
   },
   "scripts": {
-    "test": "nyc mocha --exit"
+    "test": "nyc mocha --recursive --exit"
   },
   "repository": {
     "type": "git",

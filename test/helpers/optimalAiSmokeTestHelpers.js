@@ -1,5 +1,5 @@
 const helpers = require('./characterizationTestHelpers')
-let minimaxMoves = require('../minimax_moves.json')
+let minimaxMoves = require('./minimax_moves.json')
 
 function convertBoard() {
     let convertedBoard = []
@@ -45,7 +45,7 @@ function executeHandicappedMinimaxAi() {
 
 function shouldMinimaxPlayRandom(){
     turnsWithRandomMoves = [0, 2, 4]
-    currentTurn = ttt.calculateTurnNumber()
+    currentTurn = ttt.numSpacesTaken()
     return turnsWithRandomMoves.includes(currentTurn)
 }
 
@@ -55,7 +55,7 @@ function runTestGame() {
       if(ttt.isGameOver()){
         break;
       }
-      ttt.computerMove()
+      ttt.performMove(ttt.computerMove(), "O", 2)
       if(ttt.isGameOver()){
         break;
       }
